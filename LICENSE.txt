@@ -1,4 +1,4 @@
-Copyright (c) 2014 Alexander Rueedlinger
+Copyright (c) 2014 Alexander Rüedlinger <a.rueedlinger@gmail.com>
 
 MIT License
 

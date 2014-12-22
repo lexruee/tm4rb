@@ -1,7 +1,16 @@
 require "tm4rb/version"
 require 'pp'
+
+#
+# @author Alexander Rüedlinger <a.rueedlinger@gmail.com>
+# @date 22.12.2014
+#
+
 module Tm4rb
 
+  #
+  # A class that represents an infinite tape.
+  #
   class Tape
     include Enumerable
 
@@ -34,9 +43,9 @@ module Tm4rb
     end
 
     def set_default(pos)
-      if pos>=0
+      if pos >= 0
         @positive_array[pos] = BLANK if @positive_array[pos].nil?
-      elsif pos< 0
+      elsif pos < 0
         @negative_array[pos.abs] = BLANK if @negative_array[pos.abs].nil?
       else
         raise 'Error'
@@ -56,6 +65,9 @@ module Tm4rb
 
   end
 
+  #
+  # A class which can be used to chain multiple turing machines together.
+  #
   class ChainedTuringMachine
 
     attr_reader :output
@@ -78,6 +90,9 @@ module Tm4rb
 
   end
 
+  #
+  # A class which represents a turing machine.
+  #
   class TuringMachine
     attr_accessor :delta, :final_state, :initial_state
     attr_reader :current_state, :current_index, :tape
@@ -94,7 +109,7 @@ module Tm4rb
       @current_state = initial_state
     end
 
-    def run(input,verbose=false)
+    def run(input, verbose=false)
       init
       # split input into tokens
       @tape = Tape.new input.split("")
