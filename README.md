@@ -106,3 +106,27 @@ chained_tm = Tm4rb::ChainedTuringMachine.new
     chained_tm.run('0')
     puts '[16]b=?: ' + chained_tm.output
 ```
+
+Example (check even number):
+```ruby
+ tm = Tm4rb::TuringMachine.new do |m|
+      m.final_state = :sf
+      m.initial_state = :s0
+      m.delta = {
+          [:s0,'0'] => [:s0,'0',:R],
+          [:s0,'1'] => [:s0,'1',:R],
+          [:s0,''] => [:s1,'',:L],
+
+          [:s1,'0'] => [:s2,'1',:L],
+          [:s1,'1'] => [:s2,'0',:L],
+
+          [:s2,'0'] => [:s2,'',:L],
+          [:s2,'1'] => [:s2,'',:L],
+          [:s2,''] => [:sf,'',:O]
+      }
+    end
+    tm.run('010')
+    puts tm.output # => 1
+    tm.run('011')
+    puts tm.output # => 0
+```
