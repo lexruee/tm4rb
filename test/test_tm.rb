@@ -94,4 +94,29 @@ class TestTuringMachine < MiniTest::Test
     puts '[16]b=?: ' + chained_tm.output
   end
 
+
+  def test_should_create_tm_which_checks_even_number
+    tm = Tm4rb::TuringMachine.new do |m|
+      m.final_state = :sf
+      m.initial_state = :s0
+      m.delta = {
+          [:s0,'0'] => [:s0,'0',:R],
+          [:s0,'1'] => [:s0,'1',:R],
+          [:s0,''] => [:s1,'',:L],
+
+          [:s1,'0'] => [:s2,'1',:L],
+          [:s1,'1'] => [:s2,'0',:L],
+
+          [:s2,'0'] => [:s2,'',:L],
+          [:s2,'1'] => [:s2,'',:L],
+          [:s2,''] => [:sf,'',:O]
+      }
+    end
+    tm.run('010')
+    pp tm.output
+    assert_equal '1', tm.output
+    tm.run('011')
+    assert_equal '0', tm.output
+  end
+
 end

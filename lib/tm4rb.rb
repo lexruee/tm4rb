@@ -1,5 +1,5 @@
 require "tm4rb/version"
-
+require 'pp'
 module Tm4rb
 
   class Tape
@@ -86,11 +86,16 @@ module Tm4rb
       if block_given?
         block.call self
       end
-      @current_state = initial_state
-      @current_index = 0
+      init
     end
 
-    def run(input)
+    def init
+      @current_index = 0
+      @current_state = initial_state
+    end
+
+    def run(input,verbose=false)
+      init
       # split input into tokens
       @tape = Tape.new input.split("")
 
@@ -102,6 +107,9 @@ module Tm4rb
 
         # get the current transition
         transition = delta[[current_state, token]]
+        if verbose
+          pp [[current_state, token], '->', transition]
+        end
         new_state, output, op = transition
 
         @tape[current_index] = output
