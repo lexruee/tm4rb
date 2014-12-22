@@ -14,7 +14,10 @@ tm = Tm4rb::TuringMachine.new do |m|
         [:s0,'0'] => [:sf,'1',:R], # and write a one and move the head to right.
          
         # if we read a one in state s0 go to state sf 
-        [:s0,'1'] => [:sf,'1',:R] # and write a one and move the head to right.
+        [:s0,'1'] => [:sf,'1',:R], # and write a one and move the head to right.
+        
+        # if we read a blank symbol in state so go to state sf
+        [:s0,'' => [:sf,'1',:R] # and write one and move the head to right
     }
 end
 
@@ -26,6 +29,7 @@ puts tm.output
 
 Example (double ones):
 ```ruby
+#'' is a blank symbol
  tm = Tm4rb::TuringMachine.new do |m|
       m.final_state = :s6
       m.initial_state = :s1
@@ -53,6 +57,7 @@ Example (double ones):
 
 Example (add one):
 ```ruby
+#'' is a blank symbol
  tm = Tm4rb::TuringMachine.new do |m|
       m.final_state = :sf
       m.initial_state = :s0
@@ -76,6 +81,7 @@ Example (add one):
 
 Example (chained tm):
 ```ruby
+#'' is a blank symbol
 chained_tm = Tm4rb::ChainedTuringMachine.new
     15.times do
       tm = Tm4rb::TuringMachine.new do |m|
