@@ -17,7 +17,7 @@ tm = Tm4rb::TuringMachine.new do |m|
         [:s0,'1'] => [:sf,'1',:R], # and write a one and move the head to right.
         
         # if we read a blank symbol in state so go to state sf
-        [:s0,'' => [:sf,'1',:R] # and write one and move the head to right
+        [:s0,''] => [:sf,'1',:R] # and write one and move the head to right
     }
 end
 
